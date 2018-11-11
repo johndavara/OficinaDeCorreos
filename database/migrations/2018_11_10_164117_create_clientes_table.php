@@ -18,6 +18,7 @@ class CreateClientesTable extends Migration
             $table->string('zona');
             $table->string('calle');
             $table->string('avenida');
+            $table->integer('pisos');
             $table->integer('distancia');
             $table->integer('cantidad');
             $table->string('latitud');
@@ -36,6 +37,7 @@ class CreateClientesTable extends Migration
                 'zona' => 'Concepcion de San Rafael de Heredia',
                 'calle' => 'Calle Hernandez',
                 'avenida' => 'N/A',
+                'pisos' => 2,
                 'distancia' => 50,
                 'cantidad' => 1,
                 'latitud' => '10.0302279',
