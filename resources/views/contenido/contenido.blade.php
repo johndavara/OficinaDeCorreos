@@ -5,7 +5,7 @@
 </template>
 
 <template v-if="menu==1">
-    <h1>Oficinas</h1>
+    <oficina-component></oficina-component>
 </template>
 
 <template v-if="menu==2">

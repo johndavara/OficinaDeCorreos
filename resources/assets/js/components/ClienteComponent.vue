@@ -5,7 +5,7 @@
         <!-- Ejemplo de tabla Listado -->
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Categorías
+                <i class="fa fa-align-justify"></i> Clientes
                 <button type="button" class="btn btn-secondary" @click="abrirModal('cliente','registrar')">
                     <i class="icon-plus"></i>&nbsp;Nuevo
                 </button>
