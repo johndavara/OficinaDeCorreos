@@ -13,6 +13,6 @@
  </template>
 
 <template v-if="menu==3">
-   <h1>Rutas</h1>
+    <ruta-component></ruta-component>
 </template>
 @endsection

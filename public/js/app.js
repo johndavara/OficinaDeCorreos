@@ -402,110 +402,6 @@ module.exports = g;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(24);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(8);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(8);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 /*
@@ -587,7 +483,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -815,7 +711,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -922,6 +818,110 @@ module.exports = function normalizeComponent (
   }
 }
 
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(24);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(8);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(8);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 6 */
@@ -1414,6 +1414,7 @@ window.Vue = __webpack_require__(39);
 Vue.component('cliente-component', __webpack_require__(42));
 Vue.component('oficina-component', __webpack_require__(48));
 Vue.component('paquete-component', __webpack_require__(53));
+Vue.component('ruta-component', __webpack_require__(58));
 
 // const files = require.context('./', true, /\.vue$/i)
 
@@ -35518,7 +35519,7 @@ module.exports = __webpack_require__(21);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(6);
 var Axios = __webpack_require__(23);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -35601,7 +35602,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(32);
 var dispatchRequest = __webpack_require__(33);
@@ -36140,7 +36141,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(34);
 var isCancel = __webpack_require__(10);
-var defaults = __webpack_require__(2);
+var defaults = __webpack_require__(5);
 var isAbsoluteURL = __webpack_require__(35);
 var combineURLs = __webpack_require__(36);
 
@@ -47628,7 +47629,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(43)
 }
-var normalizeComponent = __webpack_require__(5)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(46)
 /* template */
@@ -47681,7 +47682,7 @@ var content = __webpack_require__(44);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("ae571346", content, false, {});
+var update = __webpack_require__(3)("64a82c06", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -47700,12 +47701,12 @@ if(false) {
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.modal-header{\r\n    padding: 25px;\n}\n.modal-content{\r\n    width: 100% !important;\r\n    max-height: 500px !important;\r\n    position: absolute !important;\r\n    overflow-y: scroll;\r\n    padding: 20px;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    display: flex;\r\n    justify-content: center;\n}\n.text-error{\r\n    color:red !important;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-header{\n    padding: 25px;\n}\n.modal-content{\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -48226,7 +48227,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fa fa-align-justify" }),
-          _vm._v(" Clientes\r\n                "),
+          _vm._v(" Clientes\n                "),
           _c(
             "button",
             {
@@ -48240,7 +48241,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\r\n                ")
+              _vm._v(" Nuevo\n                ")
             ]
           )
         ]),
@@ -48387,7 +48388,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -48404,7 +48405,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-trash" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ])
                   ])
                 })
@@ -49145,7 +49146,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(49)
 }
-var normalizeComponent = __webpack_require__(5)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(51)
 /* template */
@@ -49198,7 +49199,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("035585f0", content, false, {});
+var update = __webpack_require__(3)("232cb0a8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -49217,12 +49218,12 @@ if(false) {
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.modal-header{\r\n    padding: 25px;\n}\n.modal-content{\r\n    width: 100% !important;\r\n    max-height: 500px !important;\r\n    position: absolute !important;\r\n    overflow-y: scroll;\r\n    padding: 20px;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    display: flex;\r\n    justify-content: center;\n}\n.text-error{\r\n    color:red !important;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-header{\n    padding: 25px;\n}\n.modal-content{\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -49622,7 +49623,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fa fa-align-justify" }),
-          _vm._v(" Oficinas\r\n                "),
+          _vm._v(" Oficinas\n                "),
           _c(
             "button",
             {
@@ -49636,7 +49637,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\r\n                ")
+              _vm._v(" Nuevo\n                ")
             ]
           )
         ]),
@@ -49799,7 +49800,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -49816,7 +49817,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-trash" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ])
                   ])
                 })
@@ -50263,7 +50264,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(54)
 }
-var normalizeComponent = __webpack_require__(5)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(56)
 /* template */
@@ -50316,7 +50317,7 @@ var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("f73788ea", content, false, {});
+var update = __webpack_require__(3)("0b09882a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -50335,12 +50336,12 @@ if(false) {
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.modal-header{\r\n    padding: 25px;\n}\n.modal-content{\r\n    width: 100% !important;\r\n    max-height: 500px !important;\r\n    position: absolute !important;\r\n    overflow-y: scroll;\r\n    padding: 20px;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    display: flex;\r\n    justify-content: center;\n}\n.text-error{\r\n    color:red !important;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-header{\n    padding: 25px;\n}\n.modal-content{\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -50827,7 +50828,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fa fa-align-justify" }),
-          _vm._v(" Paquetes\r\n                "),
+          _vm._v(" Paquetes\n                "),
           _c(
             "button",
             {
@@ -50841,7 +50842,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\r\n                ")
+              _vm._v(" Nuevo\n                ")
             ]
           )
         ]),
@@ -51006,7 +51007,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -51023,7 +51024,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-trash" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ])
                   ])
                 })
@@ -51722,6 +51723,1727 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-03d93384", module.exports)
+  }
+}
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(59)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(61)
+/* template */
+var __vue_template__ = __webpack_require__(62)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/RutaComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c11ce874", Component.options)
+  } else {
+    hotAPI.reload("data-v-c11ce874", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(60);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("1276e747", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c11ce874\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RutaComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c11ce874\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RutaComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.modal-header {\n    padding: 25px;\n}\n.modal-content {\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar {\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error {\n    display: flex;\n    justify-content: center;\n}\n.text-error {\n    color: red !important;\n    font-weight: bold;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            zona: '',
+            zonaid: 0,
+            remitente: '',
+            destinatario: '',
+            nombreOficina: '',
+            oficinaid: '',
+            estadoid: '',
+            identificador: '',
+            direccion: '',
+            descripcion: '',
+            peso: 0,
+            montoACancelar: 0,
+            modal: 0, // Indica si muestra u oculta el modal
+            tituloModal: '', // Titulo del Modal
+            tipoAccion: 0,
+            errorRuta: 0,
+            errorMostrarMensajeRuta: [],
+
+            arrayRuta: [],
+            arrayPaquetes: [],
+            arrayOficinas: [],
+            arrayRutaSola: [],
+            arrayRepartidores: [],
+            arrayRutasTipos: [],
+            repartidorid: 1,
+            ruta: '',
+            fecharuta: '',
+            tiporuta: 1,
+            desactivarCampos: 0,
+            pagination: {
+                'total': 0,
+                'current_page': 0,
+                'per_page': 0,
+                'last_page': 0,
+                'from': 0,
+                'to': 0
+            },
+            offset: 0,
+            criterio: 'encargado',
+            buscar: '',
+            rutaId: 0,
+            paquete: 0,
+            oficinadesde: 0,
+            oficinahasta: 0
+        };
+    },
+
+    computed: {
+        isActive: function isActive() {
+            return this.pagination.current_page;
+        },
+        pageNumber: function pageNumber() {
+            if (!this.pagination.to) {
+                return [];
+            }
+
+            var from = this.pagination.current_page - this.offset;
+            if (from < 1) {
+                from = 1;
+            }
+            var to = from + this.offset * 2;
+            if (to >= this.pagination.last_page) {
+                to = this.pagination.last_page;
+            }
+
+            var pagesArray = [];
+            while (from <= to) {
+                pagesArray.push(from);
+                from++;
+            }
+            return pagesArray;
+        }
+
+    },
+    methods: {
+        listarRuta: function listarRuta(page, buscar, criterio) {
+            var me = this;
+            var url = '/ruta?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
+            // Make a request for a user with a given ID
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayRuta = respuesta.rutas.data;
+                me.arrayRepartidores = respuesta.repartidores;
+                me.arrayRutasTipos = respuesta.rutasTipos;
+                me.arrayRutaSola = respuesta.rutaSola.data;
+                me.arrayPaquetes = respuesta.paquetes;
+                me.arrayOficinas = respuesta.oficinas;
+                me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+        },
+        cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+            var me = this;
+            me.pagination.current_page = page;
+            me.listarRuta(page, buscar, criterio);
+        },
+        registrarRuta: function registrarRuta() {
+            if (this.validarRuta() == 1) {
+                return;
+            }
+
+            var me = this;
+            axios.post('/ruta/registrar', {
+                'repartidorid': me.repartidorid,
+                'ruta': me.ruta,
+                'fecharuta': me.fecharuta,
+                'tiporuta': me.tiporuta
+            }).then(function (response) {
+                me.cerrarModal();
+                me.listarRuta(1, '', '');
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+        },
+        registrarPaquete: function registrarPaquete() {
+            if (this.validarPaqueteRuta() == 1) {
+                return;
+            }
+
+            var me = this;
+            axios.post('/ruta/registrarpaquete', {
+                'ruta': me.rutaId,
+                'paquete': me.paquete,
+                'desde': me.oficinadesde,
+                'hasta': me.oficinahasta
+            }).then(function (response) {
+                me.cerrarModal();
+                me.listarRuta(1, '', '');
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+        },
+        actualizarRuta: function actualizarRuta() {
+            if (this.validarRuta() == 1) {
+                return;
+            }
+            var me = this;
+
+            console.log('test');
+            console.log(me);
+
+            axios.put('/ruta/actualizar', {
+                'id': me.rutaId,
+                'repartidorid': me.repartidorid,
+                'ruta': me.ruta,
+                'fecharuta': me.fecharuta,
+                'tiporuta': me.tiporuta
+            }).then(function (response) {
+                me.cerrarModal();
+                me.listarRuta(1, '', 'remitente');
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+        },
+        eliminarRuta: function eliminarRuta(id) {
+            var _this = this;
+
+            var swalWithBootstrapButtons = swal.mixin({
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false
+            });
+
+            swalWithBootstrapButtons({
+                title: 'Deseas eliminar este Ruta?',
+                text: "No podras revertir esto!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminalo!',
+                cancelButtonText: 'No, cancelelo!',
+                reverseButtons: true
+            }).then(function (result) {
+                var me = _this;
+                if (result.value) {
+                    axios.post('/ruta/eliminar', {
+                        'id': id
+                    }).then(function (response) {
+                        swalWithBootstrapButtons('Eliminado!', 'El registro ha sido eliminado.', 'success');
+                        me.cerrarModal();
+                        me.listarRuta(1, '', 'remitente');
+                    }).catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    });
+                } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons('Cancelled', 'La eliminacion ha sido cancelada', 'error');
+                }
+            });
+        },
+        validarRuta: function validarRuta() {
+            this.errorRuta = 0;
+            this.errorMostrarMensajeRuta = [];
+            if (!this.repartidorid) this.errorMostrarMensajeRuta.push('La repartidor no puede estar vacia.');
+            if (!this.ruta) this.errorMostrarMensajeRuta.push('El nombre de la ruta no puede estar vacio.');
+            if (!this.tiporuta) this.errorMostrarMensajeRuta.push('El tipo no puede estar vacia.');
+            if (this.errorMostrarMensajeRuta.length) this.errorRuta = 1;
+            return this.errorRuta;
+        },
+        validarPaqueteRuta: function validarPaqueteRuta() {
+            this.errorRuta = 0;
+            this.errorMostrarMensajeRuta = [];
+            if (!this.rutaId) this.errorMostrarMensajeRuta.push('La ruta no puede estar vacia.');
+            if (!this.paquete) this.errorMostrarMensajeRuta.push('Paquete no puede estar vacio.');
+            if (!this.oficinadesde) this.errorMostrarMensajeRuta.push('Oficina desde no puede estar vacia.');
+            if (!this.oficinahasta) this.errorMostrarMensajeRuta.push('Oficina hasta no puede estar vacia.');
+            if (this.errorMostrarMensajeRuta.length) this.errorRuta = 1;
+            return this.errorRuta;
+        },
+        cerrarModal: function cerrarModal() {
+            this.modal = 0;
+            this.tituloModal = '';
+            this.zona = '';
+            this.zonaid = 0;
+            this.remitente = '';
+            this.destinatario = '';
+            this.direccion = '';
+            this.peso = '';
+            this.montoACancelar = '';
+            this.oficinaid = '';
+            this.estadoid = '';
+            this.descripcion = '';
+            this.identificador = '';
+
+            this.repartidorid = 1;
+            this.ruta = '';
+            this.fecharuta = '';
+            this.tiporuta = 1;
+        },
+        abrirModal: function abrirModal(modelo, accion) {
+            var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+
+            console.log(data);
+
+            switch (modelo) {
+                case "ruta":
+                    {
+                        switch (accion) {
+                            case "ver":
+                                {
+                                    this.tipoAccion = 1;
+                                    this.tituloModal = 'Rutas sin Paquete';
+                                    this.modal = 1;
+                                    this.desactivarCampos = 1;
+                                    this.zona = data['zona'];
+                                    this.zonaid = data['zonaid'];
+                                    this.remitente = data['remitente'];
+                                    this.destinatario = data['destinatario'];
+                                    this.descripcion = data['descripcion'];
+                                    this.direccion = data['direccion'];
+                                    this.peso = data['peso'];
+                                    this.montoACancelar = data['montoACancelar'];
+                                    this.estadoid = data['idestado'];
+                                    this.identificador = data['identificador'];
+                                    this.oficinaid = data['idoficina'];
+                                    break;
+                                }
+                            case "registrar":
+                                {
+                                    this.tipoAccion = 2;
+                                    this.tituloModal = 'Registrar Ruta';
+                                    this.modal = 1;
+                                    this.desactivarCampos = 0;
+                                    this.repartidorid = 1;
+                                    this.ruta = '';
+                                    this.fecharuta = '';
+                                    this.tiporuta = 1;
+                                    break;
+                                }
+                            case "actualizar":
+                                {
+                                    this.tipoAccion = 3;
+                                    this.tituloModal = 'Actualizar Ruta';
+                                    this.modal = 1;
+                                    this.desactivarCampos = 0;
+                                    this.repartidorid = data['repartidorId'];
+                                    this.ruta = data['nombre'];
+                                    this.fecharuta = data['id'];
+                                    this.tiporuta = data['rutaId'];
+                                    this.rutaId = data['id'];
+                                    break;
+                                }
+                            case "eliminar":
+                                {
+                                    break;
+                                }
+                            case "paquete":
+                                {
+                                    this.tipoAccion = 4;
+                                    this.tituloModal = 'Asignar Paquete a Ruta';
+                                    this.modal = 1;
+                                    this.desactivarCampos = 0;
+                                    this.rutaId = 0;
+                                    this.paquete = 0;
+                                    this.oficinadesde = 0;
+                                    this.oficinahasta = 0;
+                                }
+                        }
+                        break;
+                    }
+            }
+        }
+    },
+    mounted: function mounted() {
+        this.listarRuta(1, this.buscar, this.criterio);
+    }
+});
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("main", { staticClass: "main" }, [
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("i", { staticClass: "fa fa-align-justify" }),
+          _vm._v(" Paquetes en Ruta\n                "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.abrirModal("ruta", "registrar")
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "icon-plus" }),
+              _vm._v(" Nueva Ruta\n                ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.abrirModal("ruta", "ver")
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "icon-plus" }),
+              _vm._v(" Ver Rutas Sin Paquete\n                ")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.abrirModal("ruta", "paquete")
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "icon-plus" }),
+              _vm._v(" Asignar Paquete\n                ")
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "form-group row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "input-group" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.criterio,
+                        expression: "criterio"
+                      }
+                    ],
+                    staticClass: "form-control col-md-3",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.criterio = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "encargado" } }, [
+                      _vm._v("Encargado")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "idpaquete" } }, [
+                      _vm._v("Id Paquete")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "nombrepaquete" } }, [
+                      _vm._v("Nombre Paquete")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.buscar,
+                      expression: "buscar"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Texto a buscar" },
+                  domProps: {
+                    value: _vm.buscar,
+                    textContent: _vm._s(_vm.buscar)
+                  },
+                  on: {
+                    keyup: function($event) {
+                      if (
+                        !("button" in $event) &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      _vm.listarRuta(1, _vm.buscar, _vm.criterio)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.buscar = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        _vm.listarRuta(1, _vm.buscar, _vm.criterio)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-search" }),
+                    _vm._v(" Buscar\n                            ")
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "table",
+            { staticClass: "table table-bordered table-striped table-sm" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.arrayRuta, function(ruta) {
+                  return _c("tr", { key: ruta.id }, [
+                    _c("td", {
+                      domProps: { textContent: _vm._s(ruta.repartidorNombre) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: {
+                        textContent: _vm._s(ruta.rutaTipo + " " + ruta.nombre)
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(ruta.desdeNombre) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(ruta.hastaNombre) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: {
+                        textContent: _vm._s(ruta.paqueteIdentificador)
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(ruta.paqueteDescripcion) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              _vm.eliminarRuta(ruta.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "icon-trash" })]
+                      ),
+                      _vm._v("  \n                        ")
+                    ])
+                  ])
+                })
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("nav", [
+            _c(
+              "ul",
+              { staticClass: "pagination" },
+              [
+                _vm.pagination.current_page > 1
+                  ? _c("li", { staticClass: "page-item" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "page-link",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.cambiarPagina(
+                                _vm.arrayRuta.current_page - 1,
+                                _vm.buscar,
+                                _vm.criterio
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Ant")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.pageNumber, function(page) {
+                  return _c(
+                    "li",
+                    {
+                      key: page,
+                      staticClass: "page-item active",
+                      class: [page == _vm.isActive ? "active" : ""]
+                    },
+                    [
+                      _c("a", {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        domProps: { textContent: _vm._s(page) },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.cambiarPagina(page, _vm.buscar, _vm.criterio)
+                          }
+                        }
+                      })
+                    ]
+                  )
+                }),
+                _vm._v(" "),
+                _vm.pagination.current_page < _vm.pagination.last_page
+                  ? _c("li", { staticClass: "page-item" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "page-link",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.cambiarPagina(
+                                _vm.arrayRuta.current_page + 1,
+                                _vm.buscar,
+                                _vm.criterio
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Sig")]
+                      )
+                    ])
+                  : _vm._e()
+              ],
+              2
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        class: { mostrar: _vm.modal },
+        staticStyle: { display: "none" },
+        attrs: {
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "myModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-primary modal-lg",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h4", {
+                  staticClass: "modal-title",
+                  domProps: { textContent: _vm._s(_vm.tituloModal) }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: { type: "button", "aria-label": "Close" },
+                    on: {
+                      click: function($event) {
+                        _vm.cerrarModal()
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.tipoAccion == 4
+                ? _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "form",
+                      {
+                        staticClass: "form-horizontal",
+                        attrs: {
+                          action: "",
+                          method: "post",
+                          enctype: "multipart/form-data"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col-md-6 form-control-label h6",
+                                attrs: { for: "text-input" }
+                              },
+                              [_vm._v("Ruta")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.rutaId,
+                                    expression: "rutaId"
+                                  }
+                                ],
+                                staticClass: "form-control col-md-6",
+                                attrs: { disabled: _vm.desactivarCampos == 1 },
+                                domProps: { value: _vm.rutaId },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.rutaId = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.arrayRutaSola, function(ruta) {
+                                return _c("option", {
+                                  key: ruta.id,
+                                  domProps: {
+                                    value: ruta.id,
+                                    textContent: _vm._s(ruta.nombre)
+                                  }
+                                })
+                              })
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col-md-6 form-control-label h6",
+                                attrs: { for: "text-input" }
+                              },
+                              [_vm._v("Paquete")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.paquete,
+                                    expression: "paquete"
+                                  }
+                                ],
+                                staticClass: "form-control col-md-6",
+                                attrs: { disabled: _vm.desactivarCampos == 1 },
+                                domProps: { value: _vm.paquete },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.paquete = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.arrayPaquetes, function(paquete) {
+                                return _c("option", {
+                                  key: paquete.id,
+                                  domProps: {
+                                    value: paquete.id,
+                                    textContent: _vm._s(paquete.descripcion)
+                                  }
+                                })
+                              })
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col-md-6 form-control-label h6",
+                                attrs: { for: "text-input" }
+                              },
+                              [_vm._v("Oficina Desde")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.oficinadesde,
+                                    expression: "oficinadesde"
+                                  }
+                                ],
+                                staticClass: "form-control col-md-6",
+                                attrs: { disabled: _vm.desactivarCampos == 1 },
+                                domProps: { value: _vm.oficinadesde },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.oficinadesde = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.arrayOficinas, function(oficina) {
+                                return _c("option", {
+                                  key: oficina.id,
+                                  domProps: {
+                                    value: oficina.id,
+                                    textContent: _vm._s(oficina.nombreOficina)
+                                  }
+                                })
+                              })
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col-md-6 form-control-label h6",
+                                attrs: { for: "text-input" }
+                              },
+                              [_vm._v("Oficina Hasta")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.oficinahasta,
+                                    expression: "oficinahasta"
+                                  }
+                                ],
+                                staticClass: "form-control col-md-6",
+                                attrs: { disabled: _vm.desactivarCampos == 1 },
+                                domProps: { value: _vm.oficinahasta },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.oficinahasta = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.arrayOficinas, function(oficina) {
+                                return _c("option", {
+                                  key: oficina.id,
+                                  domProps: {
+                                    value: oficina.id,
+                                    textContent: _vm._s(oficina.nombreOficina)
+                                  }
+                                })
+                              })
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.errorRuta,
+                                expression: "errorRuta"
+                              }
+                            ],
+                            staticClass: "form-group row div-error"
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "text-center text-error" },
+                              _vm._l(_vm.errorMostrarMensajeRuta, function(
+                                error
+                              ) {
+                                return _c("div", {
+                                  key: error,
+                                  domProps: { textContent: _vm._s(error) }
+                                })
+                              })
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                : _c("div", [
+                    _vm.tipoAccion == 1
+                      ? _c("div", { staticClass: "modal-body" }, [
+                          _c(
+                            "table",
+                            {
+                              staticClass:
+                                "table table-bordered table-striped table-sm"
+                            },
+                            [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.arrayRutaSola, function(ruta) {
+                                  return _c("tr", { key: ruta.id }, [
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          ruta.repartidorNombre
+                                        )
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: { textContent: _vm._s(ruta.id) }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(ruta.nombre)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      domProps: {
+                                        textContent: _vm._s(ruta.rutaTipo)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-warning btn-sm",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.abrirModal(
+                                                "ruta",
+                                                "actualizar",
+                                                ruta
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "icon-pencil"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "  \n                                "
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.eliminarRuta(ruta.id)
+                                            }
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "icon-trash" })]
+                                      ),
+                                      _vm._v(
+                                        "  \n                                "
+                                      )
+                                    ])
+                                  ])
+                                })
+                              )
+                            ]
+                          )
+                        ])
+                      : _c("div", { staticClass: "modal-body" }, [
+                          _c(
+                            "form",
+                            {
+                              staticClass: "form-horizontal",
+                              attrs: {
+                                action: "",
+                                method: "post",
+                                enctype: "multipart/form-data"
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "form-group row" }, [
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-6 form-control-label h6",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Encargado")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.repartidorid,
+                                          expression: "repartidorid"
+                                        }
+                                      ],
+                                      staticClass: "form-control col-md-6",
+                                      attrs: {
+                                        disabled: _vm.desactivarCampos == 1
+                                      },
+                                      domProps: { value: _vm.repartidorid },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.repartidorid = $event.target
+                                            .multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        }
+                                      }
+                                    },
+                                    _vm._l(_vm.arrayRepartidores, function(
+                                      repartidor
+                                    ) {
+                                      return _c("option", {
+                                        key: repartidor.id,
+                                        domProps: {
+                                          value: repartidor.id,
+                                          textContent: _vm._s(repartidor.nombre)
+                                        }
+                                      })
+                                    })
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-6 form-control-label h6",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Ruta")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.ruta,
+                                        expression: "ruta"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      disabled: _vm.desactivarCampos == 1,
+                                      type: "text",
+                                      placeholder: "Nombre de la Ruta",
+                                      required: ""
+                                    },
+                                    domProps: { value: _vm.ruta },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.ruta = $event.target.value
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-md-6 form-control-label h6",
+                                      attrs: { for: "text-input" }
+                                    },
+                                    [_vm._v("Tipo")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.tiporuta,
+                                          expression: "tiporuta"
+                                        }
+                                      ],
+                                      staticClass: "form-control col-md-6",
+                                      attrs: {
+                                        disabled: _vm.desactivarCampos == 1
+                                      },
+                                      domProps: { value: _vm.tiporuta },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.tiporuta = $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        }
+                                      }
+                                    },
+                                    _vm._l(_vm.arrayRutasTipos, function(tipo) {
+                                      return _c("option", {
+                                        key: tipo.id,
+                                        domProps: {
+                                          value: tipo.id,
+                                          textContent: _vm._s(tipo.tipo)
+                                        }
+                                      })
+                                    })
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.errorRuta,
+                                      expression: "errorRuta"
+                                    }
+                                  ],
+                                  staticClass: "form-group row div-error"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "text-center text-error" },
+                                    _vm._l(
+                                      _vm.errorMostrarMensajeRuta,
+                                      function(error) {
+                                        return _c("div", {
+                                          key: error,
+                                          domProps: {
+                                            textContent: _vm._s(error)
+                                          }
+                                        })
+                                      }
+                                    )
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                  ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.cerrarModal()
+                      }
+                    }
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+                _vm._v(" "),
+                _vm.tipoAccion == 2
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.registrarRuta()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Guardar\n                    "
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.tipoAccion == 4
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.registrarPaquete()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Guardar\n                    "
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.tipoAccion == 3
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.actualizarRuta()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Actualizar\n                    "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Encargado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ruta")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Desde")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hasta")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Identificador Paquete")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nombre Paquete")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Eliminar")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Encargado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Id")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Editar")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Eliminar")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c11ce874", module.exports)
   }
 }
 

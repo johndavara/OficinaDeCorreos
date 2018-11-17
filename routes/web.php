@@ -33,3 +33,10 @@ Route::get('/paquete', 'PaqueteController@index')->name('paquete');
 Route::post('/paquete/registrar', 'PaqueteController@store')->name('registrarPaquete');
 Route::put('/paquete/actualizar', 'PaqueteController@update')->name('actualizarPaquete');
 Route::post('/paquete/eliminar', 'PaqueteController@destroy')->name('eliminarPaquete');
+
+// Rutas Ruta
+Route::get('/ruta', 'RutaController@index')->name('ruta');
+Route::post('/ruta/registrar', 'RutaController@store')->name('registrarRuta');
+Route::put('/ruta/actualizar', 'RutaController@update')->name('actualizarRuta');
+Route::post('/ruta/eliminar', 'RutaController@destroy')->name('eliminarRuta');
+Route::post('/ruta/registrarpaquete', 'RutaController@updatePaquete')->name('paqueteRuta');

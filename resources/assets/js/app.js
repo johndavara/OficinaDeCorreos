@@ -20,6 +20,7 @@ window.Vue = require('vue');
 Vue.component('cliente-component', require('./components/ClienteComponent.vue'));
 Vue.component('oficina-component', require('./components/OficinaComponent.vue'));
 Vue.component('paquete-component', require('./components/PaquetesComponent.vue'));
+Vue.component('ruta-component', require('./components/RutaComponent.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 
