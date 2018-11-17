@@ -9,7 +9,7 @@
 </template>
 
 <template v-if="menu==2">
-    <h1>Paquetes</h1>
+    <paquete-component></paquete-component>
  </template>
 
 <template v-if="menu==3">

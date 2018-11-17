@@ -24,6 +24,7 @@ class CreatePaqueteTable extends Migration
             $table->string('peso')->nullable();
             $table->unsignedInteger('idestado')->nullable();
             $table->float('montoACancelar', 8, 2)->nullable();
+            $table->unsignedInteger('idoficina')->nullable();
             $table->timestamps();
 
             //FOREIGH KEYS
@@ -35,6 +36,12 @@ class CreatePaqueteTable extends Migration
             $table->foreign('idestado')
                   ->references('id')->on('estadopaquete')
                   ->onDelete('cascade');
+
+                  
+            // estado
+            $table->foreign('idoficina')
+            ->references('id')->on('oficina')
+            ->onDelete('cascade');
         });
 
         DB::table('paquete')->insert(
@@ -49,6 +56,7 @@ class CreatePaqueteTable extends Migration
                 'peso' => '2 Kilogramos',
                 'idestado' => 2,
                 'montoACancelar' => 5000,
+                'idoficina' => 1
             )
         );
 
@@ -64,6 +72,7 @@ class CreatePaqueteTable extends Migration
                 'peso' => '5 Kilogramos',
                 'idestado' => 2,
                 'montoACancelar' => 15000,
+                'idoficina' => 1
             )
         );
 

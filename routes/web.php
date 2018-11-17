@@ -27,3 +27,9 @@ Route::get('/oficina', 'OficinaController@index')->name('oficina');
 Route::post('/oficina/registrar', 'OficinaController@store')->name('registrarOficina');
 Route::put('/oficina/actualizar', 'OficinaController@update')->name('actualizarOficina');
 Route::post('/oficina/eliminar', 'OficinaController@destroy')->name('eliminarOficina');
+
+// Rutas Paquete
+Route::get('/paquete', 'PaqueteController@index')->name('paquete');
+Route::post('/paquete/registrar', 'PaqueteController@store')->name('registrarPaquete');
+Route::put('/paquete/actualizar', 'PaqueteController@update')->name('actualizarPaquete');
+Route::post('/paquete/eliminar', 'PaqueteController@destroy')->name('eliminarPaquete');
