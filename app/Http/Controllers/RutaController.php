@@ -25,7 +25,6 @@ class RutaController extends Controller
         
         $buscar = $request->buscar;
         $criterio = $request->criterio;
-        Log::info('HOLA '. $repartidor);
         if(  $repartidor!=null && count($repartidor) > 0){
         $rutas =
             Paradasruta::
