@@ -29,7 +29,9 @@ class RutaController extends Controller
             join('repartidor', 'paradasruta.idRepartidor', '=', 'repartidor.id')->
             join('oficina as desde', 'paradasruta.oficinadesde', '=', 'desde.id')->
             join('oficina as hasta', 'paradasruta.oficinahasta', '=', 'hasta.id')->
+            join('estadopaquete', 'paquete.idestado', '=', 'estadopaquete.id')->
             select(
+                'estadopaquete.descripcion as paqueteEstado',
                 'paquete.identificador as paqueteIdentificador',
                 'paquete.descripcion as paqueteDescripcion',
                 'paquete.id as paqueteId',

@@ -22,6 +22,7 @@ Vue.component('oficina-component', require('./components/OficinaComponent.vue'))
 Vue.component('paquete-component', require('./components/PaquetesComponent.vue'));
 Vue.component('ruta-component', require('./components/RutaComponent.vue'));
 Vue.component('paquetes-home-component', require('./components/PaquetesHomeComponent.vue'));
+Vue.component('ruta-repartidor-component', require('./components/RutaRepartidorComponent.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 

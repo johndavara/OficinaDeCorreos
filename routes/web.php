@@ -34,6 +34,7 @@ Route::post('/paquete/eliminar', 'PaqueteController@destroy')->name('eliminarPaq
 Route::get('/paquete/historial', 'PaqueteController@packageHistory')->name('historialPaquete');
 Route::post('/paquete/eliminarHistorial', 'PaqueteController@destroyHistorial')->name('eliminarHistorial');
 Route::post('/paquete/registrarHistorial', 'PaqueteController@storeHistorial')->name('registrarHistorial');
+Route::put('/paquete/entregarPaquete', 'PaqueteController@entregarPaquete')->name('entregarPaquete');
 
 // Rutas Ruta
 Route::get('/ruta', 'RutaController@index')->name('ruta');

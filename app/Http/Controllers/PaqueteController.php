@@ -272,4 +272,19 @@ class PaqueteController extends Controller
         $registroEntrega->save();
         
     }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function entregarPaquete(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+        $paquete = Paquete::findOrFail($request->id);
+        $paquete->idestado = 3;
+        $paquete->save();
+    }
 }

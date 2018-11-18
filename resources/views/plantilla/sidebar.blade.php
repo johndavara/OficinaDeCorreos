@@ -16,6 +16,9 @@
                 <li @click="menu=3" class="nav-item">
                     <a class="nav-link" href="#"><i class="icon-bag"></i> Rutas</a>
                 </li>
+                <li @click="menu=5" class="nav-item">
+                    <a class="nav-link" href="#"><i class="icon-bag"></i> Vista Ruta Repartidor</a>
+                </li>
                 <li @click="menu=4" class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><i class="icon-bag"></i> Cerrar sesión</a>
