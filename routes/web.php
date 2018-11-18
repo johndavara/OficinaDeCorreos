@@ -33,6 +33,9 @@ Route::get('/paquete', 'PaqueteController@index')->name('paquete');
 Route::post('/paquete/registrar', 'PaqueteController@store')->name('registrarPaquete');
 Route::put('/paquete/actualizar', 'PaqueteController@update')->name('actualizarPaquete');
 Route::post('/paquete/eliminar', 'PaqueteController@destroy')->name('eliminarPaquete');
+Route::get('/paquete/historial', 'PaqueteController@packageHistory')->name('historialPaquete');
+Route::post('/paquete/eliminarHistorial', 'PaqueteController@destroyHistorial')->name('eliminarHistorial');
+Route::post('/paquete/registrarHistorial', 'PaqueteController@storeHistorial')->name('registrarHistorial');
 
 // Rutas Ruta
 Route::get('/ruta', 'RutaController@index')->name('ruta');

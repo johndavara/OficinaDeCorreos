@@ -31,7 +31,8 @@ class CreateRegistroEntregaTable extends Migration
                 'id' => '1',
                 'identificadorPaquete' => 'AX99934KAJSDKAS',
                 'idPaquete' => '1',
-                'descripcion' => 'Se le entrega al señor Marco en la puerta de su casa'
+                'descripcion' => 'Se le entrega al señor Marco en la puerta de su casa',
+                'idRepartidor' => '1'
             )
         );
     }

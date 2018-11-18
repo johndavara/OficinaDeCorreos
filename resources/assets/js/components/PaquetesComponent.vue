@@ -149,6 +149,58 @@
                                 <input :disabled="desactivarCampos == 1"  type="text" v-model="identificador" class="form-control" placeholder="Identificador" required>
                             </div>
                         </div>
+                         <div class="form-group row" v-if="tipoAccion==3">
+                                    <div class="col-md-6">
+                                        
+                                 <label class="col-md-6 form-control-label h1" for="text-input">Historial Paquete</label>
+                                        <label class="col-md-6 form-control-label h6" for="text-input">Encargado</label>
+                                        <select class="form-control col-md-6" 
+                                                v-model="repartidorid" v-bind:value="repartidorid">
+                                            <option v-for="repartidor in arrayRepartidores" :key="repartidor.id"
+                                                    v-text="repartidor.nombre" v-bind:value="repartidor.id"></option>
+                                        </select>
+                                    </div>
+                         </div>
+                         <div class="form-group row" v-if="tipoAccion==3">
+                             <div class="col-md-6">
+                                 <label class="col-md-6 form-control-label h6" for="text-input">Fecha</label>
+                               <datepicker :value="state.date" v-model="fechaHistorial"></datepicker>
+                            </div>
+                         </div>
+                         <div class="form-group row" v-if="tipoAccion==3">
+                             <div class="col-md-6">
+                                 <label class="col-md-6 form-control-label h6" for="text-input">Fecha</label>
+                                <input  type="text" v-model="descripcionHistorial" class="form-control" placeholder="Descripcion" required>
+                            </div>
+                         </div>
+                         <div class="form-group row" v-if="tipoAccion==3">
+                             <div class="col-md-12">
+                                 <table class="table table-bordered table-striped table-sm" v-if="tipoAccion == 3">
+                                <thead>
+                                    <tr>
+                                        <th>Encargado</th>
+                                        <th>Fecha</th>
+                                        <th>Descripcion</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="historial in arrayHistorial" :key="historial.id">
+                                        
+                                        <td v-text="historial.nombre"></td>
+                                        <td v-text="historial.fecha"></td>
+                                        <td v-text="historial.descripcion"></td>
+                                        <td>
+                                            <button @click="eliminarHistorial(historial.id)" type="button" class="btn btn-danger btn-sm">
+                                            <i class="icon-trash"></i>
+                                            </button> &nbsp;
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button @click="registrarHistorial()" v-if="tipoAccion == 3" type="button" class="btn btn-primary">Agregar</button>
+                            </div>
+                         </div>
                         <div v-show="errorPaquete" class="form-group row div-error">
                             <div class="text-center text-error">
                                 <div v-for=" error in errorMostrarMensajePaquete" :key="error" v-text="error">
@@ -156,6 +208,23 @@
                             </div>
                         </div>
                     </form>
+                    <table class="table table-bordered table-striped table-sm" v-if="accion=='ver'">
+                    <thead>
+                        <tr>
+                            <th>Encargado</th>
+                            <th>Fecha</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="historial in arrayHistorial" :key="historial.id">
+                            
+                            <td v-text="historial.nombre"></td>
+                            <td v-text="historial.fecha"></td>
+                            <td v-text="historial.descripcion"></td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
                 <div class="modal-footer">
                     <button @click="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>
@@ -174,6 +243,7 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker';
     export default {
         data(){
           return {
@@ -184,11 +254,15 @@
               nombreOficina:'',
               oficinaid:'',
               estadoid:'',
+              repartidorid:'',
+              paquete_id:'',
               identificador:'',
               arrayPaquete:[],
               arrayZona:[],
               arrayOficina:[],
               arrayEstado:[],
+              arrayHistorial:[],
+              arrayRepartidores:[],
               direccion:'',
               descripcion:'',
               peso: 0,
@@ -209,7 +283,13 @@
               },
               offset: 0,
               criterio: 'remitente',
-              buscar: ''
+              buscar: '',
+              accion:'',
+              state: {
+                date: new Date()
+             },
+             fechaHistorial:'',
+             descripcionHistorial:''
           }
         },
         computed:{
@@ -241,6 +321,20 @@
         },
         methods:{
 
+        obtenerHistorial(id){
+        
+            let me = this;
+            var url = '/paquete/historial?id='+id;
+            // Make a request for a user with a given ID
+            axios.get(url)
+            .then(function (response) {
+                var respuesta = response.data;
+                me.arrayHistorial= respuesta.historial;
+            })
+            .catch(function (error) {
+            });
+        },
+
         listarPaquete(page,buscar,criterio){
             let me = this;
             var url = '/paquete?page=' + page + '&buscar=' + buscar + '&criterio=' + criterio;
@@ -252,6 +346,7 @@
                 me.arrayZona = respuesta.zonas;
                 me.arrayEstado = respuesta.estados;
                 me.arrayOficina = respuesta.oficinas;
+                me.arrayRepartidores = respuesta.repartidores;
                 me.pagination= respuesta.pagination;
             })
             .catch(function (error) {
@@ -292,7 +387,24 @@
                 console.log(error);
             });
         },
-
+        registrarHistorial(){
+             let me = this;
+             axios.post('/paquete/registrarHistorial',{
+                 'descripcion':me.descripcionHistorial,
+                 'identificadorPaquete':me.identificador,
+                 'idPaquete':me.paquete_id,
+                 'idRepartidor':me.repartidorid,
+                 'fecha':me.fechaHistorial
+             })
+            .then(function (response) {
+                me.obtenerHistorial(me.paquete_id);
+                me.listarPaquete(1,'','remitente');
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+        },
         actualizarPaquete(){
             if(this.validarPaquete() == 1){
                 return;
@@ -367,6 +479,51 @@
             }
             })
         },
+        eliminarHistorial(id){
+            const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            })
+
+            swalWithBootstrapButtons({
+            title: 'Deseas eliminar este Registro de Historial de Paquete?',
+            text: "No podras revertir esto!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, eliminalo!',
+            cancelButtonText: 'No, cancelelo!',
+            reverseButtons: true
+            }).then((result) => {
+                let me = this;
+            if (result.value) {
+                 axios.post('/paquete/eliminarHistorial',{
+                 'id': id
+                })
+                .then(function (response) {
+                    swalWithBootstrapButtons(
+                    'Eliminado!',
+                    'El registro ha sido eliminado.',
+                    'success'
+                    )
+                    me.obtenerHistorial(me.paquete_id);
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                'Cancelled',
+                'La eliminacion ha sido cancelada',
+                'error'
+                )
+            }
+            })
+        },
         validarPaquete(){
          this.errorPaquete= 0;
          this.errorMostrarMensajePaquete = [];
@@ -399,6 +556,7 @@
           this.estadoid = '';
           this.descripcion = '';
           this.identificador = '';
+          this.accion = '';
         },
 
         abrirModal(modelo,accion,data=[]){
@@ -421,6 +579,8 @@
                             this.estadoid = data['idestado'];
                             this.identificador = data['identificador'];
                             this.oficinaid = data['idoficina'];
+                            this.accion = 'ver';
+                            this.obtenerHistorial(data['id']);
                             break;
                          }
                         case "registrar": { 
@@ -459,6 +619,7 @@
                             this.estadoid = data['idestado'];
                             this.oficinaid = data['idoficina'];
                             this.identificador = data['identificador'];
+                            this.obtenerHistorial(data['id']);
                             break;
                         }
                         case "eliminar": { 
@@ -473,6 +634,9 @@
         },
         mounted() {
             this.listarPaquete(1,this.buscar,this.criterio);
+        },
+        components: {
+            Datepicker
         }
     }
 </script>

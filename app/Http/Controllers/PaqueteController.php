@@ -7,6 +7,9 @@ use App\Zona;
 use App\EstadoPaquete;
 use App\Oficina;
 use App\Paquete;
+use App\Repartidor;
+use App\RegistroEntrega;
+use App\Paradasruta;
 use Illuminate\Support\Facades\DB;
 class PaqueteController extends Controller
 {
@@ -23,6 +26,7 @@ class PaqueteController extends Controller
         $zonas = Zona::orderBy('nombre')->get();
         $oficinas = Oficina::orderBy('nombreOficina')->get();
         $estados = EstadoPaquete::orderBy('descripcion')->get();
+        $repartidores = Repartidor::all();
         if($buscar == ''){
             $paquetes =  Paquete::join('zona', 'paquete.zona', '=', 'zona.id')
             ->select('zona.nombre as zona',
@@ -145,7 +149,8 @@ class PaqueteController extends Controller
             'paquetes'=>$paquetes,
             'oficinas'=>$oficinas,
             'zonas'=>$zonas,
-            'estados'=>$estados
+            'estados'=>$estados,
+            'repartidores' => $repartidores,
         ];
    
     }
@@ -210,5 +215,57 @@ class PaqueteController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
         Paquete::destroy($request->id);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function packageHistory(Request $request)
+    { 
+        if(!$request->ajax()) return redirect('/');
+        $idPaquete =  $request->id;
+        $historial = 
+        Paquete::
+        join('registro_entrega', 'paquete.id', '=', 'registro_entrega.idPaquete')->
+        join('repartidor', 'registro_entrega.idRepartidor', '=', 'repartidor.id')->
+        where('paquete.id','=',$idPaquete)->
+        select('registro_entrega.id','repartidor.nombre','registro_entrega.created_at as fecha','registro_entrega.descripcion')
+        ->get();
+   
+        return ['historial'=>$historial];
+    }
+
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyHistorial(Request $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+        RegistroEntrega::destroy($request->id);
+    }
+
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeHistorial(Request $request)
+    {
+        //
+        if(!$request->ajax()) return redirect('/');
+        $registroEntrega = new RegistroEntrega();
+        $registroEntrega->descripcion = $request->descripcion;
+        $registroEntrega->identificadorPaquete = $request->identificadorPaquete;
+        $registroEntrega->idPaquete = $request->idPaquete;
+        $registroEntrega->idRepartidor = $request->idRepartidor;
+       // $registroEntrega->created_at = $request->fecha;
+        $registroEntrega->save();
+        
     }
 }
