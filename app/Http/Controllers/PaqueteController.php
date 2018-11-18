@@ -28,7 +28,8 @@ class PaqueteController extends Controller
         $estados = EstadoPaquete::orderBy('descripcion')->get();
         $repartidores = Repartidor::all();
         if($buscar == ''){
-            $paquetes =  Paquete::join('zona', 'paquete.zona', '=', 'zona.id')
+            $paquetes =  Paquete::join('zona', 'paquete.zona', '=', 'zona.id')->
+            join('estadopaquete','paquete.idestado','=','estadopaquete.id')
             ->select('zona.nombre as zona',
             'zona.id as zonaid', 
             'paquete.id',
@@ -40,7 +41,8 @@ class PaqueteController extends Controller
             'paquete.montoACancelar',
             'paquete.idoficina',
             'paquete.identificador',
-            'paquete.idestado')
+            'paquete.idestado',
+            'estadopaquete.descripcion as estado')
             ->orderBy('id','desc')
             ->paginate(5);
         }else{
@@ -99,7 +101,8 @@ class PaqueteController extends Controller
                         ->paginate(5);
                     }else{
                         if($criterio == 'identificador'){
-                            $paquetes =  Paquete::join('zona', 'paquete.zona', '=', 'zona.id')
+                            $paquetes =  Paquete::join('zona', 'paquete.zona', '=', 'zona.id')->
+                            join('estadopaquete','paquete.idestado','=','estadopaquete.id')
                             ->where('paquete.identificador','like','%'.$buscar.'%')
                             ->select('zona.nombre as zona',
                             'zona.id as zonaid', 
@@ -112,7 +115,8 @@ class PaqueteController extends Controller
                             'paquete.montoACancelar',
                             'paquete.idoficina',
                             'paquete.identificador',
-                            'paquete.idestado')
+                            'paquete.idestado',
+                            'estadopaquete.descripcion as estado')
                             ->orderBy('id','desc')
                             ->paginate(5);
                         }else{

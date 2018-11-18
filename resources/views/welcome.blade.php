@@ -3,22 +3,16 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link href="css/plantilla.css" rel="stylesheet">
 
-        <title>Laravel</title>
+        <title>Oficina de Correos</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
 
             .full-height {
                 height: 100vh;
@@ -44,9 +38,6 @@
                 text-align: center;
             }
 
-            .title {
-                font-size: 84px;
-            }
 
             .links > a {
                 color: #636b6f;
@@ -78,12 +69,13 @@
                     @endauth
                 </div>
             @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Oficina de Correos
-                </div>
+            <div id="app">
+            <div class="app-body">
+               @yield('contenidohome')
             </div>
         </div>
+        </div>
+        <script src="js/app.js"></script>
+        <script src="js/plantilla.js"></script>
     </body>
 </html>

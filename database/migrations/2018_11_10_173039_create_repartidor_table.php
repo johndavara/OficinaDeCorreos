@@ -33,7 +33,8 @@ class CreateRepartidorTable extends Migration
                 'id' => '1',
                 'nombre' => 'Gerardo Ocampo Jimenez',
                 'cedula' => '409870342',
-                'telefono' => '88888888'
+                'telefono' => '88888888',
+                'idusuario' => '2'
             )
         );
 
@@ -42,7 +43,8 @@ class CreateRepartidorTable extends Migration
                 'id' => '2',
                 'nombre' => 'Julian Valverde Vega',
                 'cedula' => '603430653',
-                'telefono' => '65324125'
+                'telefono' => '65324125',
+                'idusuario' => '3'
             )
         );
     }

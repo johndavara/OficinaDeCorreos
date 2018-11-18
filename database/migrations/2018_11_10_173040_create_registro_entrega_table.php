@@ -18,12 +18,16 @@ class CreateRegistroEntregaTable extends Migration
             $table->string('identificadorPaquete')->nullable();
             $table->unsignedInteger('idPaquete')->nullable();
             $table->string('descripcion')->nullable();
+            $table->unsignedInteger('idRepartidor')->nullable();
             $table->timestamps();           
              //FOREIGH KEYS
             //zona
             $table->foreign('idPaquete')
                   ->references('id')->on('paquete')
                   ->onDelete('cascade');
+                  $table->foreign('idRepartidor')
+                        ->references('id')->on('repartidor')
+                        ->onDelete('cascade');
         });
 
         DB::table('registro_entrega')->insert(
