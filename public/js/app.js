@@ -49174,7 +49174,7 @@ var content = __webpack_require__(45);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("ae571346", content, false, {});
+var update = __webpack_require__(2)("64a82c06", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -49198,7 +49198,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-header{\r\n    padding: 25px;\n}\n.modal-content{\r\n    width: 100% !important;\r\n    max-height: 500px !important;\r\n    position: absolute !important;\r\n    overflow-y: scroll;\r\n    padding: 20px;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    display: flex;\r\n    justify-content: center;\n}\n.text-error{\r\n    color:red !important;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-header{\n    padding: 25px;\n}\n.modal-content{\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -49719,7 +49719,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fa fa-align-justify" }),
-          _vm._v(" Clientes\r\n                "),
+          _vm._v(" Clientes\n                "),
           _c(
             "button",
             {
@@ -49733,7 +49733,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\r\n                ")
+              _vm._v(" Nuevo\n                ")
             ]
           )
         ]),
@@ -49880,7 +49880,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -49897,7 +49897,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-trash" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ])
                   ])
                 })
@@ -50691,7 +50691,7 @@ var content = __webpack_require__(51);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("035585f0", content, false, {});
+var update = __webpack_require__(2)("232cb0a8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -50715,7 +50715,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-header{\r\n    padding: 25px;\n}\n.modal-content{\r\n    width: 100% !important;\r\n    max-height: 500px !important;\r\n    position: absolute !important;\r\n    overflow-y: scroll;\r\n    padding: 20px;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    display: flex;\r\n    justify-content: center;\n}\n.text-error{\r\n    color:red !important;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-header{\n    padding: 25px;\n}\n.modal-content{\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -51115,7 +51115,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fa fa-align-justify" }),
-          _vm._v(" Oficinas\r\n                "),
+          _vm._v(" Oficinas\n                "),
           _c(
             "button",
             {
@@ -51129,7 +51129,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\r\n                ")
+              _vm._v(" Nuevo\n                ")
             ]
           )
         ]),
@@ -51292,7 +51292,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -51309,7 +51309,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-trash" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ])
                   ])
                 })
@@ -51809,7 +51809,7 @@ var content = __webpack_require__(56);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("f73788ea", content, false, {});
+var update = __webpack_require__(2)("0b09882a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -51833,7 +51833,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-header{\r\n    padding: 25px;\n}\n.modal-content{\r\n    width: 100% !important;\r\n    max-height: 500px !important;\r\n    position: absolute !important;\r\n    overflow-y: scroll;\r\n    padding: 20px;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    display: flex;\r\n    justify-content: center;\n}\n.text-error{\r\n    color:red !important;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-header{\n    padding: 25px;\n}\n.modal-content{\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -52472,7 +52472,7 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("i", { staticClass: "fa fa-align-justify" }),
-          _vm._v(" Paquetes\r\n                "),
+          _vm._v(" Paquetes\n                "),
           _c(
             "button",
             {
@@ -52486,7 +52486,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "icon-plus" }),
-              _vm._v(" Nuevo\r\n                ")
+              _vm._v(" Nuevo\n                ")
             ]
           )
         ]),
@@ -52651,7 +52651,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-pencil" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ]),
                     _vm._v(" "),
                     _c("td", [
@@ -52668,7 +52668,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-trash" })]
                       ),
-                      _vm._v("  \r\n                            ")
+                      _vm._v("  \n                            ")
                     ])
                   ])
                 })
@@ -53453,7 +53453,7 @@ var render = function() {
                                               ]
                                             ),
                                             _vm._v(
-                                              "  \r\n                                        "
+                                              "  \n                                        "
                                             )
                                           ])
                                         ])
@@ -53733,7 +53733,7 @@ var content = __webpack_require__(61);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("2310b6e7", content, false, {});
+var update = __webpack_require__(2)("1276e747", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -55454,7 +55454,7 @@ var content = __webpack_require__(66);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("714a1d6c", content, false, {});
+var update = __webpack_require__(2)("0929edcc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -55478,7 +55478,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-header{\r\n    padding: 25px;\n}\n.modal-content{\r\n    width: 100% !important;\r\n    max-height: 500px !important;\r\n    position: absolute !important;\r\n    overflow-y: scroll;\r\n    padding: 20px;\n}\n.mostrar{\r\n    display: list-item !important;\r\n    opacity: 1;\r\n    position: absolute !important;\r\n    background-color: #3c29297a !important;\n}\n.div-error{\r\n    display: flex;\r\n    justify-content: center;\n}\n.text-error{\r\n    color:red !important;\r\n    font-weight: bold;\n}\n.main{\r\n    min-width: 920px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.modal-header{\n    padding: 25px;\n}\n.modal-content{\n    width: 100% !important;\n    max-height: 500px !important;\n    position: absolute !important;\n    overflow-y: scroll;\n    padding: 20px;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color:red !important;\n    font-weight: bold;\n}\n.main{\n    min-width: 920px !important;\n}\n", ""]);
 
 // exports
 
@@ -55986,7 +55986,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fa fa-align-justify" }),
-      _vm._v(" Rastrear Paquetes\r\n            ")
+      _vm._v(" Rastrear Paquetes\n            ")
     ])
   },
   function() {
@@ -56101,7 +56101,7 @@ var content = __webpack_require__(71);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("74022744", content, false, {});
+var update = __webpack_require__(2)("d9a140b8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
