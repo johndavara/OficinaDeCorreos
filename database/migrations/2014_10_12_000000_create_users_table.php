@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             array(
                 'id' => '1',
-                'name' => 'Usuario Administrador',
+                'name' => 'Usuario Administrador : Armando Arce',
                 'email' => 'admin@correos.com',
                 'password' => bcrypt('admin123')
             )
@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             array(
                 'id' => '2',
-                'name' => 'Usuario Repartidor',
+                'name' => 'Usuario Repartidor : Gerardo Ocampo Jimenez',
                 'email' => 'repartidor@correos.com',
                 'password' => bcrypt('repartidor123')
             )
@@ -42,7 +42,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             array(
                 'id' => '3',
-                'name' => 'Usuario Repartidor 2',
+                'name' => 'Usuario Repartidor : Julian Valverde Vega',
                 'email' => 'repartidor2@correos.com',
                 'password' => bcrypt('repartidor123')
             )

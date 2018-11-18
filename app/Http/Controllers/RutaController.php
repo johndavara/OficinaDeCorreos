@@ -9,7 +9,8 @@ use App\Repartidor;
 use App\Ruta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 class RutaController extends Controller
 {
     /**
@@ -19,10 +20,47 @@ class RutaController extends Controller
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
-
+        $userId = Auth::user()->id;
+        $repartidor = Repartidor::where('idusuario','=',$userId)->get();
+        
         $buscar = $request->buscar;
         $criterio = $request->criterio;
+        Log::info('HOLA '. $repartidor);
+        if(  $repartidor!=null && count($repartidor) > 0){
         $rutas =
+            Paradasruta::
+            join('paquete', 'paradasruta.paquete', '=', 'paquete.id')->
+            join('ruta', 'paradasruta.ruta', '=', 'ruta.id')->
+            join('repartidor', 'paradasruta.idRepartidor', '=', 'repartidor.id')->
+            join('oficina as desde', 'paradasruta.oficinadesde', '=', 'desde.id')->
+            join('oficina as hasta', 'paradasruta.oficinahasta', '=', 'hasta.id')->
+            join('estadopaquete', 'paquete.idestado', '=', 'estadopaquete.id')->
+            where('repartidor.id','=',$repartidor[0]->id)->
+            select(
+                'estadopaquete.descripcion as paqueteEstado',
+                'paquete.identificador as paqueteIdentificador',
+                'paquete.descripcion as paqueteDescripcion',
+                'paquete.id as paqueteId',
+
+                'ruta.id as rutaId',
+                'ruta.tipo as rutaTipo',
+                'ruta.descripcion as rutaDescripcion',
+
+                'repartidor.id as repartidorId',
+                'repartidor.nombre as repartidorNombre',
+
+                'desde.nombreOficina as desdeNombre',
+                'desde.id as desdeId',
+
+                'hasta.nombreOficina as hastaNombre',
+                'hasta.id as hastaId',
+
+                'paradasruta.id',
+                'paradasruta.nombre'
+            );
+        }else{
+
+            $rutas =
             Paradasruta::
             join('paquete', 'paradasruta.paquete', '=', 'paquete.id')->
             join('ruta', 'paradasruta.ruta', '=', 'ruta.id')->
@@ -53,6 +91,7 @@ class RutaController extends Controller
                 'paradasruta.nombre'
             );
 
+        }
 
 
         if ($criterio == 'encargado') {

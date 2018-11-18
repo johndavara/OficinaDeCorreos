@@ -19,6 +19,7 @@ class CreateParadasrutaTable extends Migration
             $table->unsignedInteger('oficinahasta')->nullable();
             $table->unsignedInteger('paquete')->nullable();
             $table->unsignedInteger('ruta')->nullable();
+            $table->unsignedInteger('idRepartidor')->nullable();
             $table->timestamps();
 
             $table->foreign('oficinadesde')
